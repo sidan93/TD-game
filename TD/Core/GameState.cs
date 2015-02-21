@@ -18,7 +18,7 @@ namespace TD.Core
 
         public GameState()
         {
-            _gameState = EGameState.MainMenu;
+            _gameState = EGameState.Game;
         }
     }
 
