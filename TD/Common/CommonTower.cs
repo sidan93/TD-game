@@ -44,7 +44,7 @@ namespace TD.Common
         public CommonTower(RenderTarget RenderTarget2D, Vector2 position) :
             base(RenderTarget2D)
         {
-            _range = 200;
+            _range = 10;
             _size = new Size2F(30, 30);
             _target.Size = _size;
             _position = position;
@@ -56,14 +56,7 @@ namespace TD.Common
             _speedFire = 3 + rand.Next(-10, 10) / 10.0f;
             _lastFire = 0;
 
-            try
-            {
-                _bitmapRange = Helpers.LoadFromFile(RenderTarget2D, "TowerRange01.png"); ;
-            }
-            catch (Exception e)
-            {
-                _bitmapRange = null;
-            }
+            _bitmapRange = Helpers.LoadFromFile(RenderTarget2D, "TowerRange01.png"); ;
             _drawRange = false;
         }
 
@@ -104,7 +97,8 @@ namespace TD.Common
 
         public virtual void Fire(DemoTime time, Vector2 position)
         {
-            if (Math.Abs(time.ElapseTime - _lastFire) > 1.0f / _speedFire)
+            // TODO _range / 2 - magic!?
+            if (Math.Abs(time.ElapseTime - _lastFire) > 1.0f / _speedFire && Helpers.InRange(_position, position, _range / 2))
             {
                 CommonBullet bullet = new CommonBullet(RenderTarget2D, _position);
                 bullet.MoveTo(position);

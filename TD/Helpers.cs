@@ -61,6 +61,23 @@ namespace TD
                 }
             }
         }
+
+        public static bool InRange(Vector2 obj, Vector2 target, double range)
+        {
+            return Range(obj, target) < range*range;
+        }
+        public static double Range(Vector2 obj, Vector2 target)
+        {
+            return Range(obj, target.X, target.Y);
+        }
+        public static double Range(Vector2 obj, float X, float Y)
+        {
+            return Range(obj.X, obj.Y, X, Y);
+        }
+        public static double Range(float X1, float Y1, float X2, float Y2)
+        {
+            return (X1 - X2) * (X1 - X2) + (Y1 - Y2) * (Y1 - Y2);
+        }
     }
         
 }

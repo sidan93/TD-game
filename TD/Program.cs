@@ -90,6 +90,9 @@ namespace TD
         
         protected override void Update(DemoTime time)
         {
+            if (time.ElapseTime - _timeLastUpdate < 1.0f / _rateUpdate)
+                return;
+    
             if (gameState.State == EGameState.MainMenu)
             {
                 mainMenu.Update(time);
@@ -98,13 +101,10 @@ namespace TD
 
             if (gameState.State == EGameState.Game)
             {
-                if (time.ElapseTime - _timeLastUpdate > 1.0f / _rateUpdate)
-                {
-                    base.Update(time);
-                    _buildingsFactory.Update(time, _player.Position);
-                    _player.Update(time);
-                    _timeLastUpdate = time.ElapseTime;
-                }
+                base.Update(time);
+                _buildingsFactory.Update(time, _player.Position);
+                _player.Update(time);
+                _timeLastUpdate = time.ElapseTime;
 
                 return;
             }
