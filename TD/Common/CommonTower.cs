@@ -17,6 +17,7 @@ using AlphaMode = SharpDX.Direct2D1.AlphaMode;
 using Bitmap = SharpDX.Direct2D1.Bitmap;
 using PixelFormat = SharpDX.Direct2D1.PixelFormat;
 using RectangleF = SharpDX.RectangleF;
+using Point = SharpDX.Point;
 
 namespace TD.Common
 {
@@ -30,6 +31,10 @@ namespace TD.Common
                 return _range;
             }
         }
+
+        protected Bitmap _bitmapRange;
+        protected bool _drawRange;
+
         protected bool _isSet; // Отвечает установаленна башна или нет
         protected List<CommonBullet> _bullets;
 
@@ -50,6 +55,16 @@ namespace TD.Common
             var rand = new Random();
             _speedFire = 3 + rand.Next(-10, 10) / 10.0f;
             _lastFire = 0;
+
+            try
+            {
+                _bitmapRange = Helpers.LoadFromFile(RenderTarget2D, "TowerRange01.png"); ;
+            }
+            catch (Exception e)
+            {
+                _bitmapRange = null;
+            }
+            _drawRange = false;
         }
 
         public override void Update(DemoTime time)
@@ -65,6 +80,9 @@ namespace TD.Common
         public override void Draw(DemoTime time)
         {
             base.Draw(time);
+
+            if (_drawRange && _bitmapRange != null)
+                RenderTarget2D.DrawBitmap(_bitmapRange, new RectangleF(_position.X - _range / 2, Position.Y - _range / 2, _range, _range), 1.0f, BitmapInterpolationMode.Linear);
 
             _bullets.ForEach(delegate(CommonBullet Bullet)
             {
@@ -93,6 +111,13 @@ namespace TD.Common
                 _bullets.Add(bullet);
                 _lastFire = time.ElapseTime;
             }
+        }
+
+        public void MouseMove(int X, int Y)
+        {
+            if ((_position.X - X) * (_position.X - X) + (_position.Y - Y) * (_position.Y - Y) < _size.Width * _size.Height)
+                _drawRange = true;
+            else _drawRange = false;
         }
     }
 

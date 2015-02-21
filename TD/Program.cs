@@ -119,6 +119,13 @@ namespace TD
                 _player.SetTower(new Vector2(e.X, e.Y));
         }
 
+        protected override void MouseMove(MouseEventArgs e)
+        {
+            base.MouseMove(e);
+            _buildingsFactory.MouseMove(e.X, e.Y);
+            
+        }
+
 
         [STAThread]
         static void Main(string[] args)

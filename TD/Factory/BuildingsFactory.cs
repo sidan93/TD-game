@@ -17,6 +17,7 @@ using AlphaMode = SharpDX.Direct2D1.AlphaMode;
 using Bitmap = SharpDX.Direct2D1.Bitmap;
 using PixelFormat = SharpDX.Direct2D1.PixelFormat;
 using RectangleF = SharpDX.RectangleF;
+using Point = SharpDX.Point;
 
 using TD.Common;
 using TD.Towers;
@@ -49,10 +50,10 @@ namespace TD.Factory
                 Tower.Update(time);
             });
 
-                    _towers.ForEach(delegate(CommonTower Tower)
-                    {
-                        Tower.Fire(time, position);
-                    });
+            _towers.ForEach(delegate(CommonTower Tower)
+            {
+                Tower.Fire(time, position);
+            });
         }
 
         // Уставить башню
@@ -64,6 +65,14 @@ namespace TD.Factory
                 _towers.Add(outTower);
             }
             return true;
+        }
+
+        public void MouseMove(int X, int Y)
+        {
+            foreach (var item in _towers)
+            {
+                item.MouseMove(X, Y);
+            }
         }
     }
 }
