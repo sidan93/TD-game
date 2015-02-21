@@ -21,10 +21,12 @@ namespace TD.Common
             base(RenderTarget2D)
         {
         }
-        public CommonBullet(RenderTarget RenderTarget2D, Vector2 position) :
-            base(RenderTarget2D, "Bullet01.png", new Size2F(4, 4), position)
+
+        public CommonBullet(RenderTarget RenderTarget2D, Vector2 position, DemoTime time = null) :
+            base(RenderTarget2D, "Bullet01.png", new Size2F(4, 4), position, time)
         {
             _speed = 6;
+            _lifeTime = 3;
         }
 
         public override void Draw(DemoTime time)
@@ -35,7 +37,7 @@ namespace TD.Common
         public override void Update(DemoTime time)
         {
             base.Update(time);
-            if (_isArrive)
+            if (_isArrive || TimeOfDeath(time))
                 this.Destroy();
         }
     }

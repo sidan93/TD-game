@@ -108,9 +108,9 @@ namespace TD.Common
             {
                 CommonBullet bullet = null;
                 if (_bulletType == EBullet.FastBullet)
-                    bullet = new FastBullet(RenderTarget2D, _position);
+                    bullet = new FastBullet(RenderTarget2D, _position, time);
                 else
-                    bullet = new CommonBullet(RenderTarget2D, _position);
+                    bullet = new CommonBullet(RenderTarget2D, _position, time);
                 if (bullet != null)
                 {
                     bullet.MoveTo(position);

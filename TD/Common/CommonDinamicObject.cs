@@ -23,15 +23,26 @@ namespace TD.Common
         protected Vector2 _endPosition;
         protected float _speed;
 
+        protected double _lifeTime; // в секундах. 0 - всегда жив
+        protected double _createTime; // в секундах
+        
         public CommonDinamicObject(RenderTarget RenderTarget2D) :
             base(RenderTarget2D)
         {
+            _lifeTime = 0;
         }
 
         public CommonDinamicObject(RenderTarget RenderTarget2D, String _bitmapPath, Size2F size, Vector2 position) :
             base(RenderTarget2D, _bitmapPath, size, position)
         {
             _speed = 3;
+        }
+
+        public CommonDinamicObject(RenderTarget RenderTarget2D, String _bitmapPath, Size2F size, Vector2 position, DemoTime time) :
+            base(RenderTarget2D, _bitmapPath, size, position)
+        {
+            _speed = 3;
+            _createTime = time != null ? time.ElapseTime : 0;
         }
 
         // Получить расстояние от текущего положения до точки следования
@@ -68,6 +79,13 @@ namespace TD.Common
             if (!_isArrive)
                 _position += _direction * _speed;
 
+        }
+        
+        public bool TimeOfDeath(DemoTime time)
+        {
+            if (_lifeTime == 0 || _createTime == 0)
+                return false;
+            return (time.ElapseTime - _createTime) > _lifeTime;
         }
 
         protected override void Destroy()

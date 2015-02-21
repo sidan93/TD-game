@@ -24,8 +24,8 @@ namespace TD.Bullet
 {
     class FastBullet : CommonBullet
     {
-        public FastBullet(RenderTarget RenderTarget2D, Vector2 position) :
-            base(RenderTarget2D, position)
+        public FastBullet(RenderTarget RenderTarget2D, Vector2 position, DemoTime time) :
+            base(RenderTarget2D, position, time)
         {
             _speed = 18;
         }
