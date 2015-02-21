@@ -21,6 +21,7 @@ using Point = SharpDX.Point;
 
 using TD.Common;
 using TD.Towers;
+using TD.Enums;
 
 namespace TD.Factory
 {
@@ -59,11 +60,16 @@ namespace TD.Factory
         // Уставить башню
         public bool SetTower(ETowers tower, Vector2 position)
         {
+            CommonTower outTower = null;
             if (tower == ETowers.SingleTower)
-            {
-                var outTower = new SingleTower(RenderTarget2D, position);
+                outTower = new SingleTower(RenderTarget2D, position);
+
+            if (tower == ETowers.CrazyTower)
+                outTower = new CrazyTower(RenderTarget2D, position);
+
+            if (outTower != null)
                 _towers.Add(outTower);
-            }
+
             return true;
         }
 

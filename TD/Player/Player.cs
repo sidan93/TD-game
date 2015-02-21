@@ -20,6 +20,7 @@ using RectangleF = SharpDX.RectangleF;
 
 using TD.Common;
 using TD.Factory;
+using TD.Enums;
 
 namespace TD.Player
 {
@@ -85,40 +86,14 @@ namespace TD.Player
             PlayerActions actionBuildTower = new PlayerActions(EPlayerActions.BuildTower);
             actionBuildTower.position = position;
             actionBuildTower.tower = ETowers.SingleTower;
+
+            if (new Random().Next(100) > 50)
+                actionBuildTower.tower = ETowers.CrazyTower;
+
             _actions.Enqueue(actionBuildTower);
         }
     }
 
-    // Список действий игрока
-    enum EPlayerActions
-    {
-        Move,
-        BuildTower,
-        None
-    }
 
-    // Класс для работы с действиями игрока
-    class PlayerActions
-    {
-        EPlayerActions _playerActions;
-        public EPlayerActions playerActions
-        {
-            get
-            {
-                return _playerActions;
-            }
-        }
-
-        // Параметры
-        public Vector2 position;
-        public ETowers tower;
-
-        public PlayerActions() : this(EPlayerActions.None) 
-        {
-        }
-        public PlayerActions(EPlayerActions action)
-        {
-            _playerActions = action;
-        }
-    }
+    
 }

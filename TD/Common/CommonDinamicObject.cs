@@ -47,7 +47,7 @@ namespace TD.Common
         {
             get
             {
-                return _getLenghtToEnd() < 3;
+                return _getLenghtToEnd() < _speed + 3;
             }
         }
 

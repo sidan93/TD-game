@@ -19,6 +19,9 @@ using PixelFormat = SharpDX.Direct2D1.PixelFormat;
 using RectangleF = SharpDX.RectangleF;
 using Point = SharpDX.Point;
 
+using TD.Enums;
+using TD.Bullet;
+
 namespace TD.Common
 {
     class CommonTower : CommonObject
@@ -37,8 +40,9 @@ namespace TD.Common
 
         protected bool _isSet; // Отвечает установаленна башна или нет
         protected List<CommonBullet> _bullets;
+        protected EBullet _bulletType;
 
-        float _speedFire;       // Количество выстрелов в секунду
+        protected float _speedFire;       // Количество выстрелов в секунду
         double _lastFire;
 
         public CommonTower(RenderTarget RenderTarget2D, Vector2 position) :
@@ -58,6 +62,8 @@ namespace TD.Common
 
             _bitmapRange = Helpers.LoadFromFile(RenderTarget2D, "TowerRange01.png"); ;
             _drawRange = false;
+
+            _bulletType = EBullet.CommonBullet;
         }
 
         public override void Update(DemoTime time)
@@ -100,9 +106,16 @@ namespace TD.Common
             // TODO _range / 2 - magic!?
             if (Math.Abs(time.ElapseTime - _lastFire) > 1.0f / _speedFire && Helpers.InRange(_position, position, _range / 2))
             {
-                CommonBullet bullet = new CommonBullet(RenderTarget2D, _position);
-                bullet.MoveTo(position);
-                _bullets.Add(bullet);
+                CommonBullet bullet = null;
+                if (_bulletType == EBullet.FastBullet)
+                    bullet = new FastBullet(RenderTarget2D, _position);
+                else
+                    bullet = new CommonBullet(RenderTarget2D, _position);
+                if (bullet != null)
+                {
+                    bullet.MoveTo(position);
+                    _bullets.Add(bullet);
+                }
                 _lastFire = time.ElapseTime;
             }
         }
@@ -114,10 +127,4 @@ namespace TD.Common
             else _drawRange = false;
         }
     }
-
-    enum ETowers
-    {
-        SingleTower
-    }
-
 }

@@ -38,6 +38,5 @@ namespace TD.Common
             if (_isArrive)
                 this.Destroy();
         }
-
     }
 }
