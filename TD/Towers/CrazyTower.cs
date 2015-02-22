@@ -32,6 +32,8 @@ namespace TD.Towers
             _speedFire = 1;
             _bulletType = EBullet.FastBullet;
             LoadFromFile("test.gif");
+
+            _type = ETowers.CrazyTower;
         }
     }
 }

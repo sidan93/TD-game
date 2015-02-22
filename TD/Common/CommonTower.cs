@@ -49,6 +49,9 @@ namespace TD.Common
         protected float _speedFire;       // Количество выстрелов в секунду
         double _lastFire;
 
+        protected ETowers _type;
+        public ETowers Type { get { return _type; } }
+
         public CommonTower(RenderTarget RenderTarget2D, Vector2 position) :
             base(RenderTarget2D)
         {

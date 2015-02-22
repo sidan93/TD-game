@@ -19,11 +19,13 @@ namespace TD.Interface.Components
         string _towerId;
         string _towerPosition;
         float _towerRange;
+        string _towerType;
 
         public InfoPanel(RenderTarget RenderTarget2D, SharpDX.DirectWrite.Factory Factory_, SolidColorBrush Brush, Vector2 position, Size2F size) :
             base(RenderTarget2D, Factory_, Brush, "chat01.png", position, size)
         {
             _margin = new Vector4(5, 5, 5, 5);
+            _textFormat.WordWrapping = WordWrapping.NoWrap;
         }
 
         public override void Draw(DemoTime time)
@@ -37,8 +39,10 @@ namespace TD.Interface.Components
             var size = getSize();
             RenderTarget2D.DrawText("ID башни: " + _towerId, _textFormat, new RectangleF(start.X, start.Y, size.Width, size.Height), _brush);
             start = getPosition(new Vector2(0, _lineHeight));
-            RenderTarget2D.DrawText("Позиция: " + _towerPosition, _textFormat, new RectangleF(start.X, start.Y, size.Width, size.Height), _brush);
+            RenderTarget2D.DrawText("Тип башни: " + _towerType, _textFormat, new RectangleF(start.X, start.Y, size.Width, size.Height), _brush);
             start = getPosition(new Vector2(0, _lineHeight * 2));
+            RenderTarget2D.DrawText("Позиция: " + _towerPosition, _textFormat, new RectangleF(start.X, start.Y, size.Width, size.Height), _brush);
+            start = getPosition(new Vector2(0, _lineHeight * 3));
             RenderTarget2D.DrawText("Радиус: " + _towerRange, _textFormat, new RectangleF(start.X, start.Y, size.Width, size.Height), _brush);
         }
 
@@ -49,6 +53,7 @@ namespace TD.Interface.Components
             _towerId = tower.Id.ToString();
             _towerPosition = tower.Position.ToString();
             _towerRange = tower.Range;
+            _towerType = tower.Type.ToString();
         }
     }
 }

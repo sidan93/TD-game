@@ -19,6 +19,7 @@ using PixelFormat = SharpDX.Direct2D1.PixelFormat;
 using RectangleF = SharpDX.RectangleF;
 
 using TD.Common;
+using TD.Enums;
 
 
 namespace TD.Towers
@@ -30,6 +31,8 @@ namespace TD.Towers
         {
             _range = 400;
             LoadFromFile("Tower01.png");
+
+            _type = ETowers.SingleTower;
         }
     }
 }
