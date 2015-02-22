@@ -54,6 +54,10 @@ namespace TD.Common
         protected ETowers _type;
         public ETowers Type { get { return _type; } }
 
+        private static uint __commonId;
+        private uint _id;
+        public uint Id { get { return _id; } }
+
         public CommonTower(RenderTarget RenderTarget2D, Vector2 position) :
             base(RenderTarget2D)
         {
@@ -73,6 +77,8 @@ namespace TD.Common
             _drawRange = false;
 
             _bulletType = EBullet.CommonBullet;
+
+            _id = ++__commonId;
         }
 
         public override void Update(DemoTime time)
