@@ -38,8 +38,6 @@ namespace TD
 
         double _timeLastDraw;       // Время последней отрисовки
         double _timeLastUpdate;     // Время последнего Update
-        double _rateSweep;          // Частота перерисовки экрана за 1 сек
-        double _rateUpdate;         // Частота пересчета данных за 1 сек
 
         static Size2 RESOLUTION = new Size2(900, 600);
 
@@ -50,7 +48,7 @@ namespace TD
         protected override void Initialize(DemoConfiguration demoConfiguration)
         {
             base.Initialize(demoConfiguration);
-            _bitmap = Helpers.LoadFromFile(RenderTarget2D, "001.jpg");
+            _bitmap = Helpers.LoadFromFile(RenderTarget2D, "gameInfo.png");
 
             GameInterface = new GameInterface(RenderTarget2D, RESOLUTION, FactoryDWrite);
 
@@ -59,8 +57,6 @@ namespace TD
 
             _timeLastDraw = 0;
             _timeLastUpdate = 0;
-            _rateSweep = 60;
-            _rateUpdate = 100;
 
             gameState = new GameState();
             mainMenu = new MainMenu(RenderTarget2D, RESOLUTION);
@@ -80,10 +76,15 @@ namespace TD
 
             if (gameState.State == EGameState.Game)
             {
+
                 base.Draw(time);
-                //RenderTarget2D.DrawBitmap(_bitmap, 1.0f, BitmapInterpolationMode.Linear);
                 RenderTarget2D.Clear(Color4.Black);
 
+                if (time.ElapseTime < 2)
+                    RenderTarget2D.DrawBitmap(_bitmap,
+                        new SharpDX.RectangleF(RESOLUTION.Width / 2 - _bitmap.Size.Width / 2, RESOLUTION.Height / 2 - _bitmap.Size.Height / 2, _bitmap.Size.Width, _bitmap.Size.Height),
+                        1.0f, BitmapInterpolationMode.Linear);
+                
                 _buildingsFactory.Draw(time);
                 _player.Draw(time);
 
