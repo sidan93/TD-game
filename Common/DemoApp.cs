@@ -61,6 +61,9 @@ namespace SharpDX.Samples
         private int _frameCount;
         private DemoConfiguration _demoConfiguration;
 
+        private double _lastUpdate;
+        private readonly int maxUpdate = 100;
+
         /// <summary>
         ///   Performs object finalization.
         /// </summary>
@@ -193,6 +196,9 @@ namespace SharpDX.Samples
             LoadContent();
 
             clock.Start();
+
+            _lastUpdate = clock.ElapseTime;
+
             BeginRun();
             RenderLoop.Run(_form, () =>
             {
@@ -201,9 +207,14 @@ namespace SharpDX.Samples
                     return;
                 }
 
-                OnUpdate();
-                if (!formIsResizing)
-                    Render();
+
+                if (clock.ElapseTime - _lastUpdate > 1.0f / maxUpdate)
+                {
+                    _lastUpdate = clock.ElapseTime;
+                    OnUpdate();
+                    if (!formIsResizing)
+                        Render();
+                }
             });
 
             UnloadContent();

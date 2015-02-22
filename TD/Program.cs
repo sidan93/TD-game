@@ -70,9 +70,8 @@ namespace TD
 
         protected override void Draw(DemoTime time)
         {
-            if (time.ElapseTime - _timeLastDraw < 1.0f / _rateSweep)
-                return;
-    
+            base.Draw(time);
+
             if (gameState.State == EGameState.MainMenu)
             {
                 mainMenu.Draw(time);
@@ -98,9 +97,6 @@ namespace TD
         
         protected override void Update(DemoTime time)
         {
-            if (time.ElapseTime - _timeLastUpdate < 1.0f / _rateUpdate)
-                return;
-
             base.Update(time);
 
             if (gameState.State == EGameState.MainMenu)
