@@ -37,6 +37,10 @@ namespace TD.Common
 
         protected Bitmap _bitmapRange;
         protected bool _drawRange;
+        public bool isMouseOver { get { return _drawRange; } }
+
+        public delegate void MethodContainer(CommonTower tower);
+        public event MethodContainer eventMouseOver;
 
         protected bool _isSet; // Отвечает установаленна башна или нет
         protected List<CommonBullet> _bullets;
@@ -122,9 +126,14 @@ namespace TD.Common
 
         public void MouseMove(int X, int Y)
         {
+            var oldState = _drawRange;
+            
             if ((_position.X - X) * (_position.X - X) + (_position.Y - Y) * (_position.Y - Y) < _size.Width * _size.Height)
                 _drawRange = true;
             else _drawRange = false;
+
+            if (oldState != _drawRange)
+                eventMouseOver(this);
         }
     }
 }

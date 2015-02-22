@@ -45,14 +45,16 @@ namespace TD
 
         GameState gameState;
         MainMenu mainMenu;
-        GameInterface gameInterface;
+        GameInterface GameInterface;
         
         protected override void Initialize(DemoConfiguration demoConfiguration)
         {
             base.Initialize(demoConfiguration);
             _bitmap = Helpers.LoadFromFile(RenderTarget2D, "001.jpg");
-            _buildingsFactory = new BuildingsFactory(RenderTarget2D);
 
+            GameInterface = new GameInterface(RenderTarget2D, RESOLUTION, FactoryDWrite);
+
+            _buildingsFactory = new BuildingsFactory(RenderTarget2D, GameInterface);
             _player = new Character(RenderTarget2D, _buildingsFactory);
 
             _timeLastDraw = 0;
@@ -63,7 +65,6 @@ namespace TD
             gameState = new GameState();
             mainMenu = new MainMenu(RenderTarget2D, RESOLUTION);
             //SoundsManager.init();
-            gameInterface = new GameInterface(RenderTarget2D, RESOLUTION, FactoryDWrite);
             
         }   
 
@@ -87,7 +88,7 @@ namespace TD
                 _buildingsFactory.Draw(time);
                 _player.Draw(time);
 
-                gameInterface.Draw(time);
+                GameInterface.Draw(time);
                 _timeLastDraw = time.ElapseTime;
 
                 return;
@@ -114,7 +115,7 @@ namespace TD
                 _player.Update(time);
                 _timeLastUpdate = time.ElapseTime;
 
-                gameInterface.Update(time);
+                GameInterface.Update(time);
 
                 return;
             }
@@ -139,7 +140,7 @@ namespace TD
         protected override void KeyDown(KeyEventArgs e)
         {
             base.KeyDown(e);
-            gameInterface.KeyDown(e);
+            GameInterface.KeyDown(e);
         }
 
         static void Main(string[] args)

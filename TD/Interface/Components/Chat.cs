@@ -14,37 +14,21 @@ using System.Windows.Forms;
 
 namespace TD.Interface.Components
 {
-    class Chat : CommonObject
+    class Chat : CommonComponent
     {
         protected List<Tuple<string, string>> _messages;
-
-        protected TextFormat _textFormat;
-        protected SharpDX.DirectWrite.Factory _factoryDWrite;
-        protected SolidColorBrush _brush;
-
-        // Внешний вид контрола
-        protected uint _textSize = 16;
-        protected Vector4 _margin;
-        protected bool _visible;
-        public bool Visible { get { return _visible; } }
-
+        
         // Ввод сообщения
         protected bool _isEnterMessage;
         protected string _enterMessage;
      
         public Chat(RenderTarget RenderTarget2D, SharpDX.DirectWrite.Factory Factory_, SolidColorBrush Brush, Vector2 position, Size2F size) :
-            base(RenderTarget2D, "chat01.png", position, size)
+            base(RenderTarget2D, Factory_, Brush, "chat01.png", position, size)
         {
             _messages = new List<Tuple<string, string>>();
             
-            _factoryDWrite = Factory_;
-            _textFormat = new TextFormat(_factoryDWrite, "Gabriola", _textSize);
-            _brush = Brush;
-            RenderTarget2D.TextAntialiasMode = TextAntialiasMode.Cleartype;
-            
             _margin = new Vector4(-5, 0, 10, 5);
 
-            _visible = false;
             _isEnterMessage = false;
             _enterMessage = "";
         }
@@ -56,8 +40,6 @@ namespace TD.Interface.Components
 
             base.Draw(time);
 
-            // Высота строки для текста
-            float lineHeight = _textFormat.FontSize + 9;
             // Максимальная ширина блока для текста с учетом отступов
             float width = _size.Width - _margin.Y - _margin.W;
 
@@ -68,9 +50,9 @@ namespace TD.Interface.Components
                 step += lineInMessage(message, width);
                 RenderTarget2D.DrawText(message, _textFormat, new RectangleF(
                     _target.Location.X + _margin.W,
-                    _target.Location.Y + _size.Height - lineHeight * step - _margin.Z,
+                    _target.Location.Y + _size.Height - _lineHeight * step - _margin.Z,
                     width,
-                    lineHeight), _brush);
+                    _lineHeight), _brush);
 
             }
 
@@ -82,13 +64,13 @@ namespace TD.Interface.Components
 
                 // Условие выхода. Если весь текст не влазиет, то и не показываем
                 // TODO Сделать чтобы показывалась та часть. которая еще влазиет
-                if ((step + lineCount) * lineHeight + _margin.X + _margin.Z > _size.Height)
+                if ((step + lineCount) * _lineHeight + _margin.X + _margin.Z > _size.Height)
                     break;
                 
                 var outRectangle = new RectangleF(_target.Location.X + _margin.W,
-                                                  _target.Location.Y + _size.Height - lineHeight * (step + lineCount) - _margin.Z, 
+                                                  _target.Location.Y - _margin.Z + _size.Height - _lineHeight * (step + lineCount), 
                                                   width,
-                                                  lineHeight * lineCount);
+                                                  _lineHeight * lineCount);
                 
                 RenderTarget2D.DrawText(message, _textFormat, outRectangle, _brush);
                 
@@ -102,30 +84,17 @@ namespace TD.Interface.Components
             var kof = 5.642857142857139; // Коэфциент для 16 кегля
             return (int)((message.Count() * kof) / width + 1);
         }
+
         public override void Update(DemoTime time)
         {
             base.Update(time);
             // TODO Сделать очищении истории сообщений
         }
 
-        public void Show()
-        {
-            _visible = true;
-        }
         public void Show(bool enterText)
         {
             _visible = true;
             _isEnterMessage = true;
-        }
-
-        public void Hide()
-        {
-            _visible = false;
-        }
-
-        public void Toggle()
-        {
-            _visible = !_visible;
         }
 
         public void AddMessage(string playerName, string messageText)
@@ -133,8 +102,10 @@ namespace TD.Interface.Components
             _messages.Add(new Tuple<string, string>(playerName, messageText));
         }
 
-        public void KeyDown(KeyEventArgs e)
+        public override void KeyDown(KeyEventArgs e)
         {
+            base.KeyDown(e);
+
             if (e.KeyCode == Keys.Enter)
             {
                 if (_isEnterMessage)

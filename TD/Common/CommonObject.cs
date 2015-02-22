@@ -50,6 +50,10 @@ namespace TD.Common
             }
         }
 
+        private static uint __commonId;
+        private uint _id;
+        public uint Id { get { return _id; } }
+
         public CommonObject(RenderTarget RenderTarget2D) 
         {
             this.RenderTarget2D = RenderTarget2D;
@@ -62,6 +66,8 @@ namespace TD.Common
             _size = size;
             _position = position;
             _target.Size = size;
+
+            _id = ++__commonId;
             
         }
 

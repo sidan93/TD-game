@@ -22,6 +22,7 @@ using Point = SharpDX.Point;
 using TD.Common;
 using TD.Towers;
 using TD.Enums;
+using TD.Interface;
 
 namespace TD.Factory
 {
@@ -29,11 +30,13 @@ namespace TD.Factory
     {
         List<CommonTower> _towers;
         RenderTarget RenderTarget2D;
+        GameInterface GameInterface;
 
-        public BuildingsFactory(RenderTarget RenderTarget2D)
+        public BuildingsFactory(RenderTarget RenderTarget2D, GameInterface GameInterface)
         {
             this.RenderTarget2D = RenderTarget2D;
             _towers = new List<CommonTower>();
+            this.GameInterface = GameInterface;
         }
 
         public void Draw(DemoTime time)
@@ -68,10 +71,19 @@ namespace TD.Factory
                 outTower = new CrazyTower(RenderTarget2D, position);
 
             if (outTower != null)
+            {
+                outTower.eventMouseOver += outTower_isMouseOver;
                 _towers.Add(outTower);
-
+            }
             return true;
         }
+
+        void outTower_isMouseOver(CommonTower tower)
+        {
+            GameInterface.InfoTower(tower);
+        }
+
+        
 
         public void MouseMove(int X, int Y)
         {
