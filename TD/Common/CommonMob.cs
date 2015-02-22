@@ -25,7 +25,7 @@ namespace TD
     class CommonMob : CommonDinamicObject
     {
         public CommonMob(RenderTarget RenderTarget2D) :
-            base(RenderTarget2D, "img/003.png", new Size2F(20,20), new Vector2(0,0))
+            base(RenderTarget2D, "img/003.png", new Vector2(0, 0), new Size2F(20, 20))
         {
          
         }

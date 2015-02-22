@@ -23,7 +23,7 @@ namespace TD.Common
         }
 
         public CommonBullet(RenderTarget RenderTarget2D, Vector2 position, DemoTime time = null) :
-            base(RenderTarget2D, "Bullet01.png", new Size2F(4, 4), position, time)
+            base(RenderTarget2D, "Bullet01.png", position, new Size2F(4, 4), time)
         {
             _speed = 6;
             _lifeTime = 3;

@@ -32,14 +32,14 @@ namespace TD.Common
             _lifeTime = 0;
         }
 
-        public CommonDinamicObject(RenderTarget RenderTarget2D, String _bitmapPath, Size2F size, Vector2 position) :
-            base(RenderTarget2D, _bitmapPath, size, position)
+        public CommonDinamicObject(RenderTarget RenderTarget2D, String _bitmapPath, Vector2 position, Size2F size) :
+            base(RenderTarget2D, _bitmapPath, position, size)
         {
             _speed = 3;
         }
 
-        public CommonDinamicObject(RenderTarget RenderTarget2D, String _bitmapPath, Size2F size, Vector2 position, DemoTime time) :
-            base(RenderTarget2D, _bitmapPath, size, position)
+        public CommonDinamicObject(RenderTarget RenderTarget2D, String _bitmapPath, Vector2 position, Size2F size, DemoTime time) :
+            base(RenderTarget2D, _bitmapPath, position, size)
         {
             _speed = 3;
             _createTime = time != null ? time.ElapseTime : 0;

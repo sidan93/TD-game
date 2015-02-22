@@ -31,7 +31,7 @@ namespace TD.Player
         Queue<PlayerActions> _actions;
 
         public Player(RenderTarget RenderTarget2D, BuildingsFactory _BuildingsFactory) :
-            base(RenderTarget2D, "002.png", new Size2F(20,20), new Vector2(0,0))
+            base(RenderTarget2D, "002.png", new Vector2(0, 0), new Size2F(20, 20))
         {
             this._BuildingsFactory = _BuildingsFactory;
             _actions = new Queue<PlayerActions>();

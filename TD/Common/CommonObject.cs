@@ -55,13 +55,14 @@ namespace TD.Common
             this.RenderTarget2D = RenderTarget2D;
         }
 
-        public CommonObject(RenderTarget RenderTarget2D, String _bitmapPath, Size2F size, Vector2 position)
+        public CommonObject(RenderTarget RenderTarget2D, String _bitmapPath, Vector2 position, Size2F size)
         {
             this.RenderTarget2D = RenderTarget2D;
             _bitmap = Helpers.LoadFromFile(RenderTarget2D, _bitmapPath);
             _size = size;
             _position = position;
-            _target.Size = _size;
+            _target.Size = size;
+            
         }
 
         public virtual void Draw(DemoTime time)
