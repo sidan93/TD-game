@@ -23,7 +23,7 @@ namespace TD.Core
             XAudio = new XAudio2();
             MasteringVoice = new MasteringVoice(XAudio);
 
-            Helpers.DecodeAudioToWav("shoot01.mp3");
+            //Helpers.DecodeAudioToWav("shoot01.mp3");
         }
 
         static public Tuple<WaveFormat, AudioBuffer, uint[]> getAudio(string file)
