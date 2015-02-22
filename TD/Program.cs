@@ -136,6 +136,11 @@ namespace TD
             
         }
 
+        protected override void KeyDown(KeyEventArgs e)
+        {
+            base.KeyDown(e);
+            gameInterface.KeyDown(e);
+        }
 
         static void Main(string[] args)
         {

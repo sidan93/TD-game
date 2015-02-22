@@ -10,6 +10,7 @@ using TD.Common;
 using TD.Interface.Components;
 using SharpDX;
 using SharpDX.DirectWrite;
+using System.Windows.Forms;
 
 namespace TD.Interface
 {
@@ -38,7 +39,28 @@ namespace TD.Interface
         public void Update(DemoTime time)
         {
             _chat.Update(time);
-            _chat.AddMessage("Andrey", time.ElapseTime.ToString() + " Тут должно перенестись на новую строку и не налезть  ");
+        }
+
+        public void KeyDown(KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Oemtilde)
+            {
+                _chat.Toggle();
+                return;
+            }
+
+            // При нажатии на Ентер надо открыть чат, если он закрыт
+            if (e.KeyCode == Keys.Enter && !_chat.Visible)
+            {
+                _chat.Show(true);
+                return;
+            }
+
+            if (_chat.Visible)
+            {
+                _chat.KeyDown(e);
+                return;
+            }
         }
     }
 }
