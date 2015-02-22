@@ -45,6 +45,7 @@ namespace TD
 
         GameState gameState;
         MainMenu mainMenu;
+        GameInterface gameInterface;
         
         protected override void Initialize(DemoConfiguration demoConfiguration)
         {
@@ -62,10 +63,15 @@ namespace TD
             gameState = new GameState();
             mainMenu = new MainMenu(RenderTarget2D, RESOLUTION);
             //SoundsManager.init();
-        }
+            gameInterface = new GameInterface(RenderTarget2D, RESOLUTION, FactoryDWrite);
+            
+        }   
 
         protected override void Draw(DemoTime time)
         {
+            if (time.ElapseTime - _timeLastDraw < 1.0f / _rateSweep)
+                return;
+    
             if (gameState.State == EGameState.MainMenu)
             {
                 mainMenu.Draw(time);
@@ -74,17 +80,16 @@ namespace TD
 
             if (gameState.State == EGameState.Game)
             {
-                if (time.ElapseTime - _timeLastDraw > 1.0f / _rateSweep)
-                {
-                    base.Draw(time);
-                    //RenderTarget2D.DrawBitmap(_bitmap, 1.0f, BitmapInterpolationMode.Linear);
-                    RenderTarget2D.Clear(Color4.Black);
+                base.Draw(time);
+                //RenderTarget2D.DrawBitmap(_bitmap, 1.0f, BitmapInterpolationMode.Linear);
+                RenderTarget2D.Clear(Color4.Black);
 
-                    _buildingsFactory.Draw(time);
-                    _player.Draw(time);
+                _buildingsFactory.Draw(time);
+                _player.Draw(time);
 
-                    _timeLastDraw = time.ElapseTime;
-                }
+                gameInterface.Draw(time);
+                _timeLastDraw = time.ElapseTime;
+
                 return;
             }
             
@@ -94,7 +99,9 @@ namespace TD
         {
             if (time.ElapseTime - _timeLastUpdate < 1.0f / _rateUpdate)
                 return;
-    
+
+            base.Update(time);
+
             if (gameState.State == EGameState.MainMenu)
             {
                 mainMenu.Update(time);
@@ -103,10 +110,11 @@ namespace TD
 
             if (gameState.State == EGameState.Game)
             {
-                base.Update(time);
                 _buildingsFactory.Update(time, _player.Position);
                 _player.Update(time);
                 _timeLastUpdate = time.ElapseTime;
+
+                gameInterface.Update(time);
 
                 return;
             }

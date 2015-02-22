@@ -142,7 +142,9 @@
     <Compile Include="Enums\ETower.cs" />
     <Compile Include="Factory\MobsFactory.cs" />
     <Compile Include="Helpers.cs" />
+    <Compile Include="Interface\Components\Chat.cs" />
     <Compile Include="Interface\Components\Button.cs" />
+    <Compile Include="Interface\GameInterface.cs" />
     <Compile Include="Interface\MainMenu.cs" />
     <Compile Include="Internet\Connector.cs" />
     <Compile Include="Common\CommonMob.cs" />
@@ -190,6 +192,9 @@
     </Content>
     <Content Include="Assets\img\Bullet01.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\img\chat01.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\img\test.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
