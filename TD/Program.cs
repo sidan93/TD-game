@@ -22,6 +22,7 @@ using TD.Factory;
 using TD.Core;
 using TD.Interface;
 using MainMenu = TD.Interface.MainMenu;
+using SharpDX.XAudio2;
 
 namespace TD
 {
@@ -60,6 +61,7 @@ namespace TD
 
             gameState = new GameState();
             mainMenu = new MainMenu(RenderTarget2D, RESOLUTION);
+            //SoundsManager.init();
         }
 
         protected override void Draw(DemoTime time)
@@ -127,7 +129,6 @@ namespace TD
         }
 
 
-        [STAThread]
         static void Main(string[] args)
         {
             Program program = new Program();

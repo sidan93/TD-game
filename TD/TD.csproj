@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TD</RootNamespace>
     <AssemblyName>TD</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -69,44 +69,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\DirectX11-net40\SharpDX.DXGI.dll</HintPath>
     </Reference>
-    <Reference Include="SharpDX.MediaFoundation">
+    <Reference Include="SharpDX.MediaFoundation, Version=2.6.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\DirectX11-net40\SharpDX.MediaFoundation.dll</HintPath>
     </Reference>
-    <Reference Include="SharpDX.RawInput">
-      <HintPath>..\DirectX11-net40\SharpDX.RawInput.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpDX.Toolkit">
-      <HintPath>..\DirectX11-net40\SharpDX.Toolkit.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpDX.Toolkit.Audio">
-      <HintPath>..\DirectX11-net40\SharpDX.Toolkit.Audio.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpDX.Toolkit.Compiler">
-      <HintPath>..\DirectX11-net40\SharpDX.Toolkit.Compiler.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpDX.Toolkit.CompilerTask">
-      <HintPath>..\DirectX11-net40\SharpDX.Toolkit.CompilerTask.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpDX.Toolkit.Game">
-      <HintPath>..\DirectX11-net40\SharpDX.Toolkit.Game.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpDX.Toolkit.Graphics">
-      <HintPath>..\DirectX11-net40\SharpDX.Toolkit.Graphics.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpDX.Toolkit.Input">
-      <HintPath>..\DirectX11-net40\SharpDX.Toolkit.Input.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpDX.Toolkit.Yaml">
-      <HintPath>..\DirectX11-net40\SharpDX.Toolkit.Yaml.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpDX.XACT3">
-      <HintPath>..\DirectX11-net40\SharpDX.XACT3.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpDX.XAudio2">
+    <Reference Include="SharpDX.XAudio2, Version=2.6.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\DirectX11-net40\SharpDX.XAudio2.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpDX.XInput">
-      <HintPath>..\DirectX11-net40\SharpDX.XInput.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -127,6 +96,8 @@
     <Compile Include="Common\CommonTower.cs" />
     <Compile Include="Common\IOutObject.cs" />
     <Compile Include="Core\GameState.cs" />
+    <Compile Include="Core\Sound.cs" />
+    <Compile Include="Core\SoundsManager.cs" />
     <Compile Include="Enums\EBullet.cs" />
     <Compile Include="Enums\EPlayerActions.cs" />
     <Compile Include="Enums\ETower.cs" />
@@ -174,28 +145,29 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="img\001.jpg">
+    <Content Include="Assets\img\001.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="img\002.png">
+    <Content Include="Assets\img\002.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="img\003.png" />
-    <Content Include="img\background01.png">
+    <Content Include="Assets\img\003.png" />
+    <Content Include="Assets\img\background01.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="img\Bullet01.png">
+    <Content Include="Assets\img\Bullet01.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="img\test.gif">
+    <Content Include="Assets\img\test.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="img\Tower01.png">
+    <Content Include="Assets\img\Tower01.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="img\TowerRange01.png">
+    <Content Include="Assets\img\TowerRange01.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\sounds\shoot01.mp3" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Input\" />

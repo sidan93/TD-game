@@ -16,6 +16,9 @@ using SharpDX.Samples;
 using AlphaMode = SharpDX.Direct2D1.AlphaMode;
 using Bitmap = SharpDX.Direct2D1.Bitmap;
 using PixelFormat = SharpDX.Direct2D1.PixelFormat;
+using System.IO;
+using SharpDX.Multimedia;
+using SharpDX.MediaFoundation;
 
 namespace TD
 {
@@ -23,7 +26,7 @@ namespace TD
     {
         public static Bitmap LoadFromFile(RenderTarget renderTarget, string file)
         {
-            file = "img/" + file;
+            file = "Assets/img/" + file;
             // Loads from file using System.Drawing.Image
             using (var bitmap = (System.Drawing.Bitmap)System.Drawing.Image.FromFile(file))
             {
@@ -78,6 +81,31 @@ namespace TD
         {
             return (X1 - X2) * (X1 - X2) + (Y1 - Y2) * (Y1 - Y2);
         }
+
+        public static void DecodeAudioToWav(string fileName)
+        {
+            fileName = "Assets/sounds/" + fileName;
+            var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+            var audioDecoder = new AudioDecoder(stream);
+
+            var outputWavStream = new FileStream(fileName + ".wav", FileMode.Create, FileAccess.Write);
+
+            var wavWriter = new WavWriter(outputWavStream);
+
+            // Write the WAV file
+            wavWriter.Begin(audioDecoder.WaveFormat);
+
+            // Decode the samples from the input file and output PCM raw data to the WAV stream.
+            wavWriter.AppendData(audioDecoder.GetSamples());
+
+            // Close the wav writer.
+            wavWriter.End();
+
+            audioDecoder.Dispose();
+            outputWavStream.Close();
+            stream.Close();
+        }
+    
     }
         
 }

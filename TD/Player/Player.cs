@@ -26,7 +26,6 @@ namespace TD.Player
 {
     class Player : CommonDinamicObject
     {
-
         BuildingsFactory _BuildingsFactory;
 
         Queue<PlayerActions> _actions;
