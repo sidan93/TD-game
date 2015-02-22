@@ -47,6 +47,8 @@ namespace TD.Common
         protected EBullet _bulletType;
 
         protected float _speedFire;       // Количество выстрелов в секунду
+        // Отбрасываем все что после двух знаков
+        public float speedFirePerMinutes { get { return _speedFire * 60; } }
         double _lastFire;
 
         protected ETowers _type;

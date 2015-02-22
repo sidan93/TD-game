@@ -20,6 +20,7 @@ namespace TD.Interface.Components
         string _towerPosition;
         float _towerRange;
         string _towerType;
+        float _towerFireRate;
 
         public InfoPanel(RenderTarget RenderTarget2D, SharpDX.DirectWrite.Factory Factory_, SolidColorBrush Brush, Vector2 position, Size2F size) :
             base(RenderTarget2D, Factory_, Brush, "chat01.png", position, size)
@@ -44,6 +45,8 @@ namespace TD.Interface.Components
             RenderTarget2D.DrawText("Позиция: " + _towerPosition, _textFormat, new RectangleF(start.X, start.Y, size.Width, size.Height), _brush);
             start = getPosition(new Vector2(0, _lineHeight * 3));
             RenderTarget2D.DrawText("Радиус: " + _towerRange, _textFormat, new RectangleF(start.X, start.Y, size.Width, size.Height), _brush);
+            start = getPosition(new Vector2(0, _lineHeight * 4));
+            RenderTarget2D.DrawText("Скорость: " + _towerFireRate, _textFormat, new RectangleF(start.X, start.Y, size.Width, size.Height), _brush);
         }
 
         public void Show(CommonTower tower)
@@ -54,6 +57,7 @@ namespace TD.Interface.Components
             _towerPosition = tower.Position.ToString();
             _towerRange = tower.Range;
             _towerType = tower.Type.ToString();
+            _towerFireRate = tower.speedFirePerMinutes;
         }
     }
 }
