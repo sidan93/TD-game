@@ -64,7 +64,7 @@ namespace TD.Interface.Components
             int step = 0;
             if (_isEnterMessage)
             {
-                var message = "Я: " + _enterMessage;
+                var message = "Сообщение: " + _enterMessage;
                 step += lineInMessage(message, width);
                 RenderTarget2D.DrawText(message, _textFormat, new RectangleF(
                     _target.Location.X + _margin.W,
@@ -279,9 +279,9 @@ namespace TD.Interface.Components
                 _enterMessage += " ";
 
             if (e.KeyCode == Keys.Back)
-                if (_enterMessage.Count() < 2)
+                if (_enterMessage.Count() < 1)
                     _enterMessage = "";
-                else _enterMessage = _enterMessage.Remove(_enterMessage.Count() - 2);
+                else _enterMessage = _enterMessage.Remove(_enterMessage.Count() - 1);
         }
     }
 }
