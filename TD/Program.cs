@@ -53,7 +53,13 @@ namespace TD
             GameInterface = new GameInterface(RenderTarget2D, RESOLUTION, FactoryDWrite);
 
             _buildingsFactory = new BuildingsFactory(RenderTarget2D, GameInterface);
-            _player = new Character(RenderTarget2D, _buildingsFactory);
+            _player = new Character(RenderTarget2D, _buildingsFactory, "Серафим");
+
+            // Подпишем игрока на наведение мыши
+            _player.eventMouseOver += (Character player) =>
+                {
+                    GameInterface.InfoHero(player);
+                };
 
             _timeLastDraw = 0;
             _timeLastUpdate = 0;
@@ -131,6 +137,7 @@ namespace TD
         {
             base.MouseMove(e);
             _buildingsFactory.MouseMove(e.X, e.Y);
+            _player.MouseMove(e.X, e.Y);
             
         }
 

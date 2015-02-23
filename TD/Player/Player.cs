@@ -21,6 +21,7 @@ using RectangleF = SharpDX.RectangleF;
 using TD.Common;
 using TD.Factory;
 using TD.Enums;
+using TD;
 
 namespace TD.Player
 {
@@ -30,12 +31,24 @@ namespace TD.Player
 
         Queue<PlayerActions> _actions;
 
-        public Player(RenderTarget RenderTarget2D, BuildingsFactory _BuildingsFactory) :
+        // Наведена ли мышь на героя
+        protected bool _isMouseOver;
+        public bool isMouseOver { get { return _isMouseOver; } }
+
+        protected string _name;
+        public string Name { get { return _name; } }
+
+        // Событе наведения или ухода мыши
+        public delegate void MethodContainer(Player player);
+        public event MethodContainer eventMouseOver;
+
+        public Player(RenderTarget RenderTarget2D, BuildingsFactory _BuildingsFactory, string name) :
             base(RenderTarget2D, "002.png", new Vector2(0, 0), new Size2F(20, 20))
         {
             this._BuildingsFactory = _BuildingsFactory;
             _actions = new Queue<PlayerActions>();
             _actions.Enqueue(new PlayerActions());
+            _name = name;
         }
 
         public override void Draw(DemoTime time)
@@ -77,7 +90,6 @@ namespace TD.Player
             }
         }
 
-
         public void SetTower(Vector2 position)
         {
             MoveTo(position);
@@ -90,6 +102,19 @@ namespace TD.Player
                 actionBuildTower.tower = ETowers.CrazyTower;
 
             _actions.Enqueue(actionBuildTower);
+        }
+
+        public void MouseMove(int X, int Y)
+        {
+            bool lastState = _isMouseOver;
+
+            if (Helpers.InRange(_position, new Vector2(X, Y), _size.Height))
+                _isMouseOver = true;
+            else _isMouseOver = false;
+
+            if (lastState != _isMouseOver)
+                eventMouseOver(this);
+
         }
     }
 

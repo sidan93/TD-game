@@ -145,7 +145,8 @@
     <Compile Include="Interface\Components\Chat.cs" />
     <Compile Include="Interface\Components\Button.cs" />
     <Compile Include="Common\CommonComponent.cs" />
-    <Compile Include="Interface\Components\InfoPanel.cs" />
+    <Compile Include="Interface\Components\InfoHeroPanel.cs" />
+    <Compile Include="Interface\Components\InfoTowerPanel.cs" />
     <Compile Include="Interface\GameInterface.cs" />
     <Compile Include="Interface\MainMenu.cs" />
     <Compile Include="Internet\Connector.cs" />

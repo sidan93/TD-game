@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 using TD.Interface.Components;
 using TD.Common;
@@ -10,11 +11,10 @@ using SharpDX.Direct2D1;
 using SharpDX;
 using SharpDX.Samples;
 using SharpDX.DirectWrite;
-using System.Windows.Forms;
 
 namespace TD.Interface.Components
 {
-    class InfoPanel : CommonComponent
+    class InfoTowerPanel : CommonComponent
     {
         string _towerId;
         string _towerPosition;
@@ -22,7 +22,7 @@ namespace TD.Interface.Components
         string _towerType;
         float _towerFireRate;
 
-        public InfoPanel(RenderTarget RenderTarget2D, SharpDX.DirectWrite.Factory Factory_, SolidColorBrush Brush, Vector2 position, Size2F size) :
+        public InfoTowerPanel(RenderTarget RenderTarget2D, SharpDX.DirectWrite.Factory Factory_, SolidColorBrush Brush, Vector2 position, Size2F size) :
             base(RenderTarget2D, Factory_, Brush, "chat01.png", position, size)
         {
             _margin = new Vector4(5, 5, 5, 5);
