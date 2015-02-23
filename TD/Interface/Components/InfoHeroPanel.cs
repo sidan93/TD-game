@@ -46,7 +46,7 @@ namespace TD.Interface.Components
             start = getPosition(new Vector2(0, _lineHeight * 3));
             RenderTarget2D.DrawText("Позиция: " + _playerPosition, _textFormat, new RectangleF(start.X, start.Y, size.Width, size.Height), _brush);
             start = getPosition(new Vector2(0, _lineHeight * 4));
-            RenderTarget2D.DrawText("Скорость: " + _playerSpeed, _textFormat, new RectangleF(start.X, start.Y, size.Width, size.Height), _brush);
+            RenderTarget2D.DrawText("Скорость перемещения: " + _playerSpeed, _textFormat, new RectangleF(start.X, start.Y, size.Width, size.Height), _brush);
         }
 
         public void Show(Player.Player player)

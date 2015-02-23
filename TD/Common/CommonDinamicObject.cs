@@ -22,7 +22,7 @@ namespace TD.Common
         protected Vector2 _direction;
         protected Vector2 _endPosition;
         protected float _speed;
-        public float Speed { get { return _speed; } }
+        public float Speed { get { return _speed * 60; } }
 
         protected double _lifeTime; // в секундах. 0 - всегда жив
         protected double _createTime; // в секундах
