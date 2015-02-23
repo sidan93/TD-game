@@ -69,7 +69,7 @@ namespace TD.Common
         // Получить глобальные координаты с учетом отступов и offset
         protected Vector2 getPosition(Vector2 offset)
         {
-            return new Vector2(_target.Location.X + _margin.W + offset.X, _target.Location.Y + _margin.X + offset.Y);
+            return new Vector2(_position.X - _size.Width / 2 + _margin.W + offset.X, _position.Y - _size.Height / 2 + _margin.X + offset.Y);
         }
 
         // Получить возможную ширину с учетом отступов

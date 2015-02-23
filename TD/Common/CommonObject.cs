@@ -26,7 +26,19 @@ namespace TD.Common
         protected RenderTarget RenderTarget2D;
 
         protected RectangleF _target;
-        protected Size2F _size;
+
+        private Size2F __size;
+        protected Size2F _size
+        {
+            get { return __size; }
+            set
+            {
+                __size = value;
+                _target.Location = new Vector2(-_size.Width / 2, -_size.Height / 2);
+                _target.Size = __size;
+            }
+        }
+        
         private Vector2 __position;
         protected Vector2 _position
         {
@@ -37,20 +49,22 @@ namespace TD.Common
             set
             {
                 __position = value;
-                float x = value.X - _size.Width / 2;
-                float y = value.Y - _size.Height / 2;
-                _target.Location = new Vector2(x, y);
+                recalcMatrix();
             }
         }
-        public Vector2 Position
-        {
-            get
-            {
-                return _position;
-            }
-        }
+        public Vector2 Position { get { return _position; } }
 
-    
+        protected float _rotation;
+        public float Rotation
+        {
+            get { return _rotation; }
+            protected set 
+            {
+                _rotation = value;
+                recalcMatrix();
+            }
+        }
+        private Matrix _resultMatrix;
 
         public CommonObject(RenderTarget RenderTarget2D) 
         {
@@ -61,17 +75,22 @@ namespace TD.Common
         {
             this.RenderTarget2D = RenderTarget2D;
             _bitmap = Helpers.LoadFromFile(RenderTarget2D, _bitmapPath);
+            
+            _resultMatrix = Matrix.Identity;
+
             _size = size;
             _position = position;
-            _target.Size = size;
 
-            
         }
 
         public virtual void Draw(DemoTime time)
         {
             if (RenderTarget2D != null)
-              RenderTarget2D.DrawBitmap(_bitmap, _target, 1.0f, BitmapInterpolationMode.Linear);
+            {
+                RenderTarget2D.Transform = _resultMatrix;
+                RenderTarget2D.DrawBitmap(_bitmap, _target, 1.0f, BitmapInterpolationMode.Linear);
+                RenderTarget2D.Transform = Matrix.Identity;
+            }
         }
 
         public virtual void Update(DemoTime time)
@@ -90,6 +109,11 @@ namespace TD.Common
         protected virtual void Destroy()
         {
             RenderTarget2D = null;
+        }
+
+        protected virtual void recalcMatrix()
+        {
+            _resultMatrix = Matrix.Multiply(Matrix.RotationZ(Rotation), Matrix.Translation(_position.X, _position.Y, 0));
         }
     }
 }

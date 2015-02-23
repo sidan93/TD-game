@@ -47,7 +47,7 @@ namespace TD.Player
         public event MethodCreateTower eventCreateTower;
 
         public Player(RenderTarget RenderTarget2D, BuildingsFactory _BuildingsFactory, string name) :
-            base(RenderTarget2D, "002.png", new Vector2(0, 0), new Size2F(20, 20))
+            base(RenderTarget2D, "hero01.png", new Vector2(0, 0), new Size2F(30, 30))
         {
             this._BuildingsFactory = _BuildingsFactory;
             _actions = new Queue<PlayerActions>();
@@ -121,6 +121,8 @@ namespace TD.Player
             if (lastState != _isMouseOver)
                 eventMouseOver(this);
 
+            var vec1 = new Vector2(X - _position.X, Y - _position.Y);
+            Rotation = (float)Math.Acos((Y - _position.Y) / vec1.Length()) * (vec1.X > 0 ? -1 : 1);
         }
     }
 

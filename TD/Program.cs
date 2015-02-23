@@ -43,7 +43,7 @@ namespace TD
         double _timeLastDraw;       // Время последней отрисовки
         double _timeLastUpdate;     // Время последнего Update
 
-        static Size2 RESOLUTION = new Size2(900, 600);
+        static Size2 RESOLUTION = new Size2(1200, 900);
 
         GameState gameState;
         MainMenu mainMenu;
@@ -82,7 +82,6 @@ namespace TD
             gameState = new GameState();
             mainMenu = new MainMenu(RenderTarget2D, RESOLUTION);
             //SoundsManager.init();
-            
         }   
 
         protected override void Draw(DemoTime time)
@@ -158,7 +157,6 @@ namespace TD
             base.MouseMove(e);
             _buildingsFactory.MouseMove(e.X, e.Y);
             _myCharacter.MouseMove(e.X, e.Y);
-            
         }
 
         protected override void KeyDown(KeyEventArgs e)
