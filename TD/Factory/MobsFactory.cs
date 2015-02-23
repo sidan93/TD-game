@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
-
 using System.Drawing;
 using System.Drawing.Imaging;
 
 using SharpDX;
 using SharpDX.DXGI;
 using SharpDX.Direct2D1;
-
 using SharpDX.Samples;
 
 using AlphaMode = SharpDX.Direct2D1.AlphaMode;
@@ -19,18 +17,19 @@ using PixelFormat = SharpDX.Direct2D1.PixelFormat;
 using RectangleF = SharpDX.RectangleF;
 using Point = SharpDX.Point;
 
+using TD.Common;
+using TD.Interface;
+
 namespace TD.Factory
 {
-    public class MobsFactory
+    class MobsFactory : CommonFactory
     {
         List<CommonMob> mobs;
 
-        public MobsFactory()
+        public MobsFactory(RenderTarget RenderTarget2D, GameInterface GameInterface) :
+            base(RenderTarget2D, GameInterface)
+        
         {
-            for (int i = 0; i < 100; i++)
-            {
-                
-            }
         }
     }
 }

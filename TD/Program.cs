@@ -32,9 +32,12 @@ namespace TD
     /// </summary>
     public class Program : Direct2D
     {
-        Bitmap _bitmap;
-        Character _player;
+        Bitmap _infoGamePanel;
+
+        Character _myCharacter;
+        
         BuildingsFactory _buildingsFactory;
+        PlayersFactory _playersFactory;
 
         double _timeLastDraw;       // Время последней отрисовки
         double _timeLastUpdate;     // Время последнего Update
@@ -48,18 +51,15 @@ namespace TD
         protected override void Initialize(DemoConfiguration demoConfiguration)
         {
             base.Initialize(demoConfiguration);
-            _bitmap = Helpers.LoadFromFile(RenderTarget2D, "gameInfo.png");
+            _infoGamePanel = Helpers.LoadFromFile(RenderTarget2D, "gameInfo.png");
 
             GameInterface = new GameInterface(RenderTarget2D, RESOLUTION, FactoryDWrite);
 
             _buildingsFactory = new BuildingsFactory(RenderTarget2D, GameInterface);
-            _player = new Character(RenderTarget2D, _buildingsFactory, "Серафим");
+            _myCharacter = new Character(RenderTarget2D, _buildingsFactory, "Серафим");
+            _playersFactory = new PlayersFactory(RenderTarget2D, GameInterface, _myCharacter);
 
-            // Подпишем игрока на наведение мыши
-            _player.eventMouseOver += (Character player) =>
-                {
-                    GameInterface.InfoHero(player);
-                };
+           
 
             _timeLastDraw = 0;
             _timeLastUpdate = 0;
@@ -87,12 +87,12 @@ namespace TD
                 RenderTarget2D.Clear(Color4.Black);
 
                 if (time.ElapseTime < 2)
-                    RenderTarget2D.DrawBitmap(_bitmap,
-                        new SharpDX.RectangleF(RESOLUTION.Width / 2 - _bitmap.Size.Width / 2, RESOLUTION.Height / 2 - _bitmap.Size.Height / 2, _bitmap.Size.Width, _bitmap.Size.Height),
+                    RenderTarget2D.DrawBitmap(_infoGamePanel,
+                        new SharpDX.RectangleF(RESOLUTION.Width / 2 - _infoGamePanel.Size.Width / 2, RESOLUTION.Height / 2 - _infoGamePanel.Size.Height / 2, _infoGamePanel.Size.Width, _infoGamePanel.Size.Height),
                         1.0f, BitmapInterpolationMode.Linear);
                 
                 _buildingsFactory.Draw(time);
-                _player.Draw(time);
+                _myCharacter.Draw(time);
 
                 GameInterface.Draw(time);
                 _timeLastDraw = time.ElapseTime;
@@ -114,8 +114,8 @@ namespace TD
 
             if (gameState.State == EGameState.Game)
             {
-                _buildingsFactory.Update(time, _player.Position);
-                _player.Update(time);
+                _buildingsFactory.Update(time, _myCharacter.Position);
+                _myCharacter.Update(time);
                 _timeLastUpdate = time.ElapseTime;
 
                 GameInterface.Update(time);
@@ -128,16 +128,16 @@ namespace TD
         {
             base.MouseClick(e);
             if (e.Button == MouseButtons.Right)
-                _player.MoveTo(new Vector2(e.X, e.Y));
+                _myCharacter.MoveTo(new Vector2(e.X, e.Y));
             if (e.Button == MouseButtons.Left)
-                _player.SetTower(new Vector2(e.X, e.Y));
+                _myCharacter.SetTower(new Vector2(e.X, e.Y));
         }
 
         protected override void MouseMove(MouseEventArgs e)
         {
             base.MouseMove(e);
             _buildingsFactory.MouseMove(e.X, e.Y);
-            _player.MouseMove(e.X, e.Y);
+            _myCharacter.MouseMove(e.X, e.Y);
             
         }
 

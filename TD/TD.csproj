@@ -131,6 +131,7 @@
     <Compile Include="Bullet\FastBullet.cs" />
     <Compile Include="Common\CommonBullet.cs" />
     <Compile Include="Common\CommonDinamicObject.cs" />
+    <Compile Include="Common\CommonFactory.cs" />
     <Compile Include="Common\CommonObject.cs" />
     <Compile Include="Common\CommonTower.cs" />
     <Compile Include="Common\IOutObject.cs" />
@@ -141,6 +142,7 @@
     <Compile Include="Enums\EPlayerActions.cs" />
     <Compile Include="Enums\ETower.cs" />
     <Compile Include="Factory\MobsFactory.cs" />
+    <Compile Include="Factory\PlayersFactory.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="Interface\Components\Chat.cs" />
     <Compile Include="Interface\Components\Button.cs" />

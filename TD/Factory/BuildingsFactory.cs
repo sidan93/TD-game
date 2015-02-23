@@ -26,21 +26,20 @@ using TD.Interface;
 
 namespace TD.Factory
 {
-    class BuildingsFactory 
+    class BuildingsFactory : CommonFactory
     {
         List<CommonTower> _towers;
-        RenderTarget RenderTarget2D;
-        GameInterface GameInterface;
 
-        public BuildingsFactory(RenderTarget RenderTarget2D, GameInterface GameInterface)
+        public BuildingsFactory(RenderTarget RenderTarget2D, GameInterface GameInterface) :
+            base(RenderTarget2D, GameInterface)
         {
-            this.RenderTarget2D = RenderTarget2D;
             _towers = new List<CommonTower>();
-            this.GameInterface = GameInterface;
         }
 
         public void Draw(DemoTime time)
         {
+            base.Draw(time);
+
             _towers.ForEach(delegate(CommonTower Tower)
             {
                 Tower.Draw(time);
@@ -49,6 +48,8 @@ namespace TD.Factory
 
         public void Update(DemoTime time, Vector2 position)
         {
+            base.Update(time);
+
             _towers.ForEach(delegate(CommonTower Tower)
             {
                 Tower.Update(time);
@@ -83,9 +84,7 @@ namespace TD.Factory
             GameInterface.InfoTower(tower);
         }
 
-        
-
-        public void MouseMove(int X, int Y)
+        public override void MouseMove(int X, int Y)
         {
             foreach (var item in _towers)
             {
