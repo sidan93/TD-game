@@ -51,5 +51,6 @@ namespace TD.Common
 
         }
 
+        public virtual int FactorySize { get { return 0; } }
     }
 }

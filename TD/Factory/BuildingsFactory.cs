@@ -62,7 +62,7 @@ namespace TD.Factory
         }
 
         // Уставить башню
-        public bool SetTower(ETowers tower, Vector2 position)
+        public CommonTower SetTower(ETowers tower, Vector2 position)
         {
             CommonTower outTower = null;
             if (tower == ETowers.SingleTower)
@@ -76,7 +76,7 @@ namespace TD.Factory
                 outTower.eventMouseOver += outTower_isMouseOver;
                 _towers.Add(outTower);
             }
-            return true;
+            return outTower;
         }
 
         void outTower_isMouseOver(CommonTower tower)
@@ -91,5 +91,7 @@ namespace TD.Factory
                 item.MouseMove(X, Y);
             }
         }
+
+        public override int FactorySize { get { return _towers.Count; } }
     }
 }

@@ -39,8 +39,12 @@ namespace TD.Player
         public string Name { get { return _name; } }
 
         // Событе наведения или ухода мыши
-        public delegate void MethodContainer(Player player);
-        public event MethodContainer eventMouseOver;
+        public delegate void MethodMouseOver(Player player);
+        public event MethodMouseOver eventMouseOver;
+
+        // Событие установки башни
+        public delegate void MethodCreateTower(CommonTower tower);
+        public event MethodCreateTower eventCreateTower;
 
         public Player(RenderTarget RenderTarget2D, BuildingsFactory _BuildingsFactory, string name) :
             base(RenderTarget2D, "002.png", new Vector2(0, 0), new Size2F(20, 20))
@@ -84,7 +88,8 @@ namespace TD.Player
                     }
                 else if (_actions.Peek().playerActions == EPlayerActions.BuildTower)
                 {
-                    _BuildingsFactory.SetTower(_actions.Peek().tower, _actions.Peek().position);
+                    var tower = _BuildingsFactory.SetTower(_actions.Peek().tower, _actions.Peek().position);
+                    eventCreateTower(tower);
                     _actions.Dequeue();
                 }
             }
@@ -92,6 +97,7 @@ namespace TD.Player
 
         public void SetTower(Vector2 position)
         {
+            
             MoveTo(position);
 
             PlayerActions actionBuildTower = new PlayerActions(EPlayerActions.BuildTower);

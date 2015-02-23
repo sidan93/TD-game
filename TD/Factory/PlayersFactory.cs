@@ -46,5 +46,7 @@ namespace TD.Factory
         {
             GameInterface.InfoHero(player);
         }
+
+        public override int FactorySize { get { return _players.Count + 1;} }
     }
 }

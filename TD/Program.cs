@@ -21,6 +21,7 @@ using Character = TD.Player.Player;
 using TD.Factory;
 using TD.Core;
 using TD.Interface;
+using TD.Common;
 using MainMenu = TD.Interface.MainMenu;
 using SharpDX.XAudio2;
 
@@ -46,11 +47,14 @@ namespace TD
 
         GameState gameState;
         MainMenu mainMenu;
+
         GameInterface GameInterface;
-        
+        GameStats GameStats;
+
         protected override void Initialize(DemoConfiguration demoConfiguration)
         {
             base.Initialize(demoConfiguration);
+
             _infoGamePanel = Helpers.LoadFromFile(RenderTarget2D, "gameInfo.png");
 
             GameInterface = new GameInterface(RenderTarget2D, RESOLUTION, FactoryDWrite);
@@ -59,7 +63,18 @@ namespace TD
             _myCharacter = new Character(RenderTarget2D, _buildingsFactory, "Серафим");
             _playersFactory = new PlayersFactory(RenderTarget2D, GameInterface, _myCharacter);
 
-           
+            GameStats = new GameStats(_playersFactory, _buildingsFactory, null);
+            GameStats.Money = 100;
+            GameStats.Woods = 100;
+
+            _myCharacter.eventCreateTower += (CommonTower tower) =>
+                {
+                    GameStats.Money -= (int)tower.Id;
+                    GameStats.Woods -= (int)tower.Id;
+
+                };
+
+            GameInterface.SetGameStats(GameStats);
 
             _timeLastDraw = 0;
             _timeLastUpdate = 0;
@@ -119,6 +134,7 @@ namespace TD
                 _timeLastUpdate = time.ElapseTime;
 
                 GameInterface.Update(time);
+                GameStats.Update(time);
 
                 return;
             }
@@ -130,7 +146,11 @@ namespace TD
             if (e.Button == MouseButtons.Right)
                 _myCharacter.MoveTo(new Vector2(e.X, e.Y));
             if (e.Button == MouseButtons.Left)
-                _myCharacter.SetTower(new Vector2(e.X, e.Y));
+            {
+                if (GameStats.CheckResources(GameStats.BuildingsCount + 1, GameStats.BuildingsCount + 1))
+                    _myCharacter.SetTower(new Vector2(e.X, e.Y));
+                else GameInterface.setRedBrush();
+            }
         }
 
         protected override void MouseMove(MouseEventArgs e)

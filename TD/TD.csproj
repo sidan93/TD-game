@@ -136,6 +136,7 @@
     <Compile Include="Common\CommonTower.cs" />
     <Compile Include="Common\IOutObject.cs" />
     <Compile Include="Core\GameState.cs" />
+    <Compile Include="Core\GameStats.cs" />
     <Compile Include="Core\Sound.cs" />
     <Compile Include="Core\SoundsManager.cs" />
     <Compile Include="Enums\EBullet.cs" />
@@ -148,6 +149,7 @@
     <Compile Include="Interface\Components\Button.cs" />
     <Compile Include="Common\CommonComponent.cs" />
     <Compile Include="Interface\Components\InfoHeroPanel.cs" />
+    <Compile Include="Interface\Components\InfoStatsPanel.cs" />
     <Compile Include="Interface\Components\InfoTowerPanel.cs" />
     <Compile Include="Interface\GameInterface.cs" />
     <Compile Include="Interface\MainMenu.cs" />
