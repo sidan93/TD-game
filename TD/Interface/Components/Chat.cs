@@ -49,8 +49,8 @@ namespace TD.Interface.Components
                 var message = "Сообщение: " + _enterMessage;
                 step += lineInMessage(message, width);
                 RenderTarget2D.DrawText(message, _textFormat, new RectangleF(
-                    _target.Location.X + _margin.W,
-                    _target.Location.Y + _size.Height - _lineHeight * step - _margin.Z,
+                    _position.X - _size.Width / 2 + _margin.W,
+                    _position.Y + _size.Height / 2 - _lineHeight * step - _margin.Z,
                     width,
                     _lineHeight), _brush);
 
@@ -66,9 +66,9 @@ namespace TD.Interface.Components
                 // TODO Сделать чтобы показывалась та часть. которая еще влазиет
                 if ((step + lineCount) * _lineHeight + _margin.X + _margin.Z > _size.Height)
                     break;
-                
-                var outRectangle = new RectangleF(_target.Location.X + _margin.W,
-                                                  _target.Location.Y - _margin.Z + _size.Height - _lineHeight * (step + lineCount), 
+
+                var outRectangle = new RectangleF(_position.X - _size.Width / 2 + _margin.W,
+                                                  _position.Y - _size.Height / 2 - _margin.Z + _size.Height - _lineHeight * (step + lineCount), 
                                                   width,
                                                   _lineHeight * lineCount);
                 
