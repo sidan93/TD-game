@@ -25,14 +25,30 @@ namespace TD
     class CommonMob : CommonDinamicObject
     {
         public CommonMob(RenderTarget RenderTarget2D) :
-            base(RenderTarget2D, "img/003.png", new Vector2(0, 0), new Size2F(20, 20))
+            this(RenderTarget2D, new Vector2(0, 0))
         {
          
+        }
+
+        public CommonMob(RenderTarget RenderTarget2D, Vector2 position) :
+            base(RenderTarget2D, "003.png", position, new Size2F(20, 20))
+        {
+
         }
 
         public override void Draw(DemoTime time)
         {
             base.Draw(time);
+        }
+
+        public override void Update(DemoTime time)
+        {
+            base.Update(time);
+            if (_isArrive)
+            {
+                var rand = new Random();
+                MoveTo(new Vector2(rand.Next(0, 1200), rand.Next(0, 900)));
+            }
         }
     }
 }

@@ -66,25 +66,31 @@ namespace TD.Common
         }
         private Matrix _resultMatrix;
 
+        protected bool _enabled;
+
         public CommonObject(RenderTarget RenderTarget2D) 
         {
             this.RenderTarget2D = RenderTarget2D;
+            _enabled = true;
+
+            _resultMatrix = Matrix.Identity;
         }
 
         public CommonObject(RenderTarget RenderTarget2D, String _bitmapPath, Vector2 position, Size2F size)
+            : this(RenderTarget2D)
         {
-            this.RenderTarget2D = RenderTarget2D;
             _bitmap = Helpers.LoadFromFile(RenderTarget2D, _bitmapPath);
             
-            _resultMatrix = Matrix.Identity;
 
             _size = size;
             _position = position;
-
         }
 
         public virtual void Draw(DemoTime time)
         {
+            if (!_enabled)
+                return; 
+
             if (RenderTarget2D != null)
             {
                 RenderTarget2D.Transform = _resultMatrix;
@@ -95,6 +101,8 @@ namespace TD.Common
 
         public virtual void Update(DemoTime time)
         {
+            if (!_enabled)
+                return; 
         }
 
         protected bool LoadFromFile(String _bitmapPath)

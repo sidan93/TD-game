@@ -37,8 +37,9 @@ namespace TD
 
         Character _myCharacter;
         
-        BuildingsFactory _buildingsFactory;
-        PlayersFactory _playersFactory;
+        BuildingsFactory BuildingsFactory;
+        PlayersFactory PlayersFactory;
+        MobsFactory MobsFactory;
 
         double _timeLastDraw;       // Время последней отрисовки
         double _timeLastUpdate;     // Время последнего Update
@@ -59,11 +60,12 @@ namespace TD
 
             GameInterface = new GameInterface(RenderTarget2D, RESOLUTION, FactoryDWrite);
 
-            _buildingsFactory = new BuildingsFactory(RenderTarget2D, GameInterface);
-            _myCharacter = new Character(RenderTarget2D, _buildingsFactory, "Серафим");
-            _playersFactory = new PlayersFactory(RenderTarget2D, GameInterface, _myCharacter);
+            BuildingsFactory = new BuildingsFactory(RenderTarget2D, GameInterface);
+            _myCharacter = new Character(RenderTarget2D, BuildingsFactory, "Серафим");
+            PlayersFactory = new PlayersFactory(RenderTarget2D, GameInterface, _myCharacter);
+            MobsFactory = new MobsFactory(RenderTarget2D, GameInterface);
 
-            GameStats = new GameStats(_playersFactory, _buildingsFactory, null);
+            GameStats = new GameStats(PlayersFactory, BuildingsFactory, null);
             GameStats.Money = 100;
             GameStats.Woods = 100;
 
@@ -105,7 +107,8 @@ namespace TD
                         new SharpDX.RectangleF(RESOLUTION.Width / 2 - _infoGamePanel.Size.Width / 2, RESOLUTION.Height / 2 - _infoGamePanel.Size.Height / 2, _infoGamePanel.Size.Width, _infoGamePanel.Size.Height),
                         1.0f, BitmapInterpolationMode.Linear);
                 
-                _buildingsFactory.Draw(time);
+                BuildingsFactory.Draw(time);
+                MobsFactory.Draw(time);
                 _myCharacter.Draw(time);
 
                 GameInterface.Draw(time);
@@ -128,12 +131,13 @@ namespace TD
 
             if (gameState.State == EGameState.Game)
             {
-                _buildingsFactory.Update(time, _myCharacter.Position);
+                BuildingsFactory.Update(time, _myCharacter.Position);
                 _myCharacter.Update(time);
                 _timeLastUpdate = time.ElapseTime;
 
                 GameInterface.Update(time);
                 GameStats.Update(time);
+                MobsFactory.Update(time);
 
                 return;
             }
@@ -155,7 +159,7 @@ namespace TD
         protected override void MouseMove(MouseEventArgs e)
         {
             base.MouseMove(e);
-            _buildingsFactory.MouseMove(e.X, e.Y);
+            BuildingsFactory.MouseMove(e.X, e.Y);
             _myCharacter.MouseMove(e.X, e.Y);
         }
 

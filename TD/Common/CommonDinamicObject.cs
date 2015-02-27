@@ -79,7 +79,6 @@ namespace TD.Common
 
             if (!_isArrive)
                 _position += _direction * _speed;
-
         }
         
         public bool TimeOfDeath(DemoTime time)

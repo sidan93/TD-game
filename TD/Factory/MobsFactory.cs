@@ -24,12 +24,44 @@ namespace TD.Factory
 {
     class MobsFactory : CommonFactory
     {
-        List<CommonMob> mobs;
+        List<CommonMob> _mobs;
+
+        double _lastCreate;
 
         public MobsFactory(RenderTarget RenderTarget2D, GameInterface GameInterface) :
             base(RenderTarget2D, GameInterface)
         
         {
+            _mobs = new List<CommonMob>();
+        }
+
+        public override void Draw(DemoTime time)
+        {
+            base.Draw(time);
+        
+            foreach(var mob in _mobs)
+            {
+                mob.Draw(time);
+            }
+        }
+
+        public override void Update(DemoTime time)
+        {
+            base.Update(time);
+
+            if (time.ElapseTime - _lastCreate > 1)
+            {
+                var newMob = new CommonMob(RenderTarget2D);
+                var rand = new Random();
+                newMob.MoveTo(new Vector2(rand.Next(0, 1200), rand.Next(0, 900)));
+                _mobs.Add(newMob);
+                _lastCreate = time.ElapseTime;
+            }
+               
+            foreach (var mob in _mobs)
+            {
+                mob.Update(time);
+            }
         }
     }
 }
