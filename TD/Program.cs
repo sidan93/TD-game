@@ -24,6 +24,7 @@ using TD.Interface;
 using TD.Common;
 using MainMenu = TD.Interface.MainMenu;
 using SharpDX.XAudio2;
+using TD.Sounds;
 
 namespace TD
 {
@@ -83,7 +84,10 @@ namespace TD
 
             gameState = new GameState();
             mainMenu = new MainMenu(RenderTarget2D, RESOLUTION);
-            //SoundsManager.init();
+            SoundsManager.init();
+            AudioPlayer sound = new AudioPlayer("goobye.mp3");
+            sound.Volume = 0.04f;
+            sound.Play();
         }   
 
         protected override void Draw(DemoTime time)

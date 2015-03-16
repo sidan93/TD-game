@@ -20,11 +20,16 @@ using RectangleF = SharpDX.RectangleF;
 
 using TD.Common;
 using TD.Enums;
+using TD.Core;
+using System.Threading;
+using System.Threading.Tasks;
+using TD.Sounds;
 
 namespace TD.Towers
 {
     class CrazyTower : CommonTower
     {
+        AudioPlayer _soundShoot;
         public CrazyTower(RenderTarget RenderTarget2D, Vector2 position) :
             base(RenderTarget2D, position)
         {
@@ -34,6 +39,13 @@ namespace TD.Towers
             LoadFromFile("test.gif");
 
             _type = ETowers.CrazyTower;
+            _soundShoot = new AudioPlayer("shoot01.mp3");
+        }
+
+        public override void Fire(DemoTime time, Vector2 position)
+        {
+            base.Fire(time, position);
+            _soundShoot.Play();
         }
     }
 }
