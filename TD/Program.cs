@@ -25,6 +25,7 @@ using TD.Common;
 using MainMenu = TD.Interface.MainMenu;
 using SharpDX.XAudio2;
 using TD.Sounds;
+using TD.Internet;
 
 namespace TD
 {
@@ -88,6 +89,9 @@ namespace TD
             AudioPlayer sound = new AudioPlayer("goobye.mp3");
             sound.Volume = 0.04f;
             sound.Play();
+
+            Connector.ConnectWithServer();
+            
         }   
 
         protected override void Draw(DemoTime time)

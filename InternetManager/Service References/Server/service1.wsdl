@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Session" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="NetTcpBinding_ISession_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1">
+        </msb:BinaryEncoding>
+        <wsaw:UsingAddressing>
+        </wsaw:UsingAddressing>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import namespace="http://tempuri.org/" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/SharpDX" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ISession_DoWork_InputMessage">
+    <wsdl:part name="parameters" element="tns:DoWork" />
+  </wsdl:message>
+  <wsdl:message name="ISession_login_InputMessage">
+    <wsdl:part name="parameters" element="tns:login" />
+  </wsdl:message>
+  <wsdl:message name="ISession_Registration_InputMessage">
+    <wsdl:part name="parameters" element="tns:Registration" />
+  </wsdl:message>
+  <wsdl:message name="ISession_EnterMessage_InputMessage">
+    <wsdl:part name="parameters" element="tns:EnterMessage" />
+  </wsdl:message>
+  <wsdl:message name="ISession_MessageToPlayer_InputMessage">
+    <wsdl:part name="parameters" element="tns:MessageToPlayer" />
+  </wsdl:message>
+  <wsdl:message name="ISession_SetDirection_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetDirection" />
+  </wsdl:message>
+  <wsdl:message name="ISession_CreateNewTower_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateNewTower" />
+  </wsdl:message>
+  <wsdl:message name="ISession_Print_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:Print" />
+  </wsdl:message>
+  <wsdl:message name="ISession_MessageToMe_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:MessageToMe" />
+  </wsdl:message>
+  <wsdl:message name="ISession_MoveAllHeroes_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:MoveAllHeroes" />
+  </wsdl:message>
+  <wsdl:message name="ISession_MoveAllMobs_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:MoveAllMobs" />
+  </wsdl:message>
+  <wsdl:message name="ISession_MoveAllBullets_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:MoveAllBullets" />
+  </wsdl:message>
+  <wsdl:portType msc:usingSession="true" name="ISession">
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="DoWork">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISession/DoWork" message="tns:ISession_DoWork_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="login">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISession/login" message="tns:ISession_login_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="Registration">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISession/Registration" message="tns:ISession_Registration_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="EnterMessage">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISession/EnterMessage" message="tns:ISession_EnterMessage_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="MessageToPlayer">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISession/MessageToPlayer" message="tns:ISession_MessageToPlayer_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="SetDirection">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISession/SetDirection" message="tns:ISession_SetDirection_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="CreateNewTower">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISession/CreateNewTower" message="tns:ISession_CreateNewTower_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="Print">
+      <wsdl:output wsaw:Action="http://tempuri.org/ISession/Print" message="tns:ISession_Print_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="MessageToMe">
+      <wsdl:output wsaw:Action="http://tempuri.org/ISession/MessageToMe" message="tns:ISession_MessageToMe_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="MoveAllHeroes">
+      <wsdl:output wsaw:Action="http://tempuri.org/ISession/MoveAllHeroes" message="tns:ISession_MoveAllHeroes_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="MoveAllMobs">
+      <wsdl:output wsaw:Action="http://tempuri.org/ISession/MoveAllMobs" message="tns:ISession_MoveAllMobs_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="MoveAllBullets">
+      <wsdl:output wsaw:Action="http://tempuri.org/ISession/MoveAllBullets" message="tns:ISession_MoveAllBullets_OutputCallbackMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="NetTcpBinding_ISession" type="tns:ISession">
+    <wsp:PolicyReference URI="#NetTcpBinding_ISession_policy">
+    </wsp:PolicyReference>
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="DoWork">
+      <soap12:operation soapAction="http://tempuri.org/ISession/DoWork" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="login">
+      <soap12:operation soapAction="http://tempuri.org/ISession/login" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="Registration">
+      <soap12:operation soapAction="http://tempuri.org/ISession/Registration" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="EnterMessage">
+      <soap12:operation soapAction="http://tempuri.org/ISession/EnterMessage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="MessageToPlayer">
+      <soap12:operation soapAction="http://tempuri.org/ISession/MessageToPlayer" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="SetDirection">
+      <soap12:operation soapAction="http://tempuri.org/ISession/SetDirection" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="CreateNewTower">
+      <soap12:operation soapAction="http://tempuri.org/ISession/CreateNewTower" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="Print">
+      <soap12:operation soapAction="http://tempuri.org/ISession/Print" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MessageToMe">
+      <soap12:operation soapAction="http://tempuri.org/ISession/MessageToMe" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MoveAllHeroes">
+      <soap12:operation soapAction="http://tempuri.org/ISession/MoveAllHeroes" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MoveAllMobs">
+      <soap12:operation soapAction="http://tempuri.org/ISession/MoveAllMobs" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MoveAllBullets">
+      <soap12:operation soapAction="http://tempuri.org/ISession/MoveAllBullets" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Session">
+    <wsdl:port name="NetTcpBinding_ISession" binding="tns:NetTcpBinding_ISession">
+      <soap12:address location="net.tcp://127.0.0.1:8888/AH.Server3/" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://127.0.0.1:8888/AH.Server3/</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
